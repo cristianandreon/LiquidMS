@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LiquidMS-demo:jar">
+    <output-path>$PROJECT_DIR$/../LiquidMS-demo/out/artifacts/LiquidMS_demo_jar</output-path>
+    <root id="archive" name="LiquidMS-demo.jar">
+      <element id="module-output" name="LiquidMS-demo" />
+      <element id="module-output" name="LiquidMS" />
+      <element id="module-output" name="Liquid" />
+      <element id="library" level="application" name="lib_JAVA_EE6" />
+      <element id="library" level="application" name="Liquid-servlet3" />
+    </root>
+  </artifact>
+</component>
