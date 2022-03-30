@@ -1,10 +1,13 @@
 package com.liquidms;
 
+import com.liquid.connectionPool;
 import oshi.SystemInfo;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
 
+import javax.servlet.Servlet;
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LiquidMS {
@@ -61,5 +64,97 @@ public class LiquidMS {
         OperatingSystem os = si.getOperatingSystem();
         return os.getProcess(pid);
     }
+
+    static boolean run = true;
+    static connectionPool ds = null;
+
+
+    public static class servlet {
+        Class<?> cls;
+        String url;
+
+        servlet(Class<?> cls, String url) throws Exception {
+            this.cls = cls;
+            this.url = url;
+        }
+    }
+
+    static private ArrayList<servlet> servletList = new ArrayList<servlet>();
+
+    public static void addServlet(Class<?> cls, String url) throws Exception {
+        servletList.add( new servlet(cls, url) );
+    }
+
+    private static void registerAllServlet(JettyServer js) throws Exception {
+        for (servlet s: servletList) {
+            js.addServletWithMapping((Class<? extends Servlet>) s.cls, s.url);
+        }
+    }
+
+
+
+    public static void run(String[] args) throws Exception {
+
+        System.out.println(
+                "██╗     ██╗ ██████╗ ██╗   ██╗██╗██████╗                                                    \n" +
+                        "██║     ██║██╔═══██╗██║   ██║██║██╔══██╗                                                   \n" +
+                        "██║     ██║██║   ██║██║   ██║██║██║  ██║                                                   \n" +
+                        "██║     ██║██║▄▄ ██║██║   ██║██║██║  ██║                                                   \n" +
+                        "███████╗██║╚██████╔╝╚██████╔╝██║██████╔╝                                                   \n" +
+                        "╚══════╝╚═╝ ╚══▀▀═╝  ╚═════╝ ╚═╝╚═════╝                                                    \n" +
+                        "                                                                                           \n" +
+                        "███╗   ███╗██╗ ██████╗██████╗  ██████╗ ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗\n" +
+                        "████╗ ████║██║██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝\n" +
+                        "██╔████╔██║██║██║     ██████╔╝██║   ██║███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗  \n" +
+                        "██║╚██╔╝██║██║██║     ██╔══██╗██║   ██║╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝  \n" +
+                        "██║ ╚═╝ ██║██║╚██████╗██║  ██║╚██████╔╝███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗\n" +
+                        "╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝\n" +
+                        "                                                                                           "
+        );
+
+        if(args.length > 0) {
+            for (int i = 0; i < args.length; i++) {
+                if("-LiquidMS:run".equalsIgnoreCase(args[i])) {
+                    System.out.println("Running server..");
+                    JettyServer js = new JettyServer();
+                    js.init();
+                    registerAllServlet(js);
+                    js.start();
+                } else if("-LiquidMS:test".equalsIgnoreCase(args[i])) {
+                    if(args.length >= 2) {
+                        if(args[1] != null && !args[1].isEmpty()) {
+                            if("-test".equalsIgnoreCase(args[1])) {
+                                // testServer();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // run watch dog
+        System.out.println("Running watchdog..");
+        WatchDogThread wd = new WatchDogThread();
+        wd.start();
+
+        while(run) {
+            Thread.sleep(250);
+        }
+    }
+
+    /*
+    static public void testServer() throws URISyntaxException, IOException, InterruptedException {
+        String url = "http://localhost:8090/status";
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(url))
+                .headers("Host", "localhost", "Accept", "*")
+                .GET()
+                .build();
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+    }
+    */
 
 }
