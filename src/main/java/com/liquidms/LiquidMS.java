@@ -12,8 +12,15 @@ import java.util.List;
 
 public class LiquidMS {
 
+
     static public String version = "1.01";
     static public int port = 8090;
+
+
+    static WatchDogThread wd = null;
+    static LooperThread lt = null;
+
+
 
 
     public static List<OSProcess> getOSProcesses() {
@@ -91,7 +98,9 @@ public class LiquidMS {
         }
     }
 
-
+    static public boolean addEvent(String name, String className, String method, long delay_msec, long interval_msec, long maxExec) throws NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return lt.addEvent( name, className, method, delay_msec, interval_msec, maxExec);
+    }
 
     public static void run(String[] args) throws Exception {
 
@@ -136,6 +145,12 @@ public class LiquidMS {
         System.out.println("Running watchdog..");
         WatchDogThread wd = new WatchDogThread();
         wd.start();
+
+        // run watch dog
+        System.out.println("Running looper..");
+        LooperThread lt = new LooperThread();
+        lt.start();
+
 
         while(run) {
             Thread.sleep(250);
