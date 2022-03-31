@@ -24,11 +24,16 @@ public class WatchDogThread extends Thread {
     public ArrayList<String> processArgs;
     public String error;
 
-    public int pause = 5000;
+    public int pause = 250;
     public int counter = 0;
-    public int maxCounter = 3;
+    public int maxCounter = 30;
 
     public boolean run = false;
+
+    Process p = null;
+    BufferedReader errStream = null;
+    BufferedReader inStream = null;
+
 
     public void run() {
 
@@ -89,20 +94,32 @@ public class WatchDogThread extends Thread {
                                 processArgs.add("-XX:MaxRAM=72m");
                             }
                         }
-                        Process p = com.liquid.utility.startProcess( processPath, processArgs.toArray(new String[0]) );
+                        p = com.liquid.utility.startProcess( processPath, processArgs.toArray(new String[0]) );
+                        errStream = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                        inStream = new BufferedReader(new InputStreamReader(p.getInputStream()));
                         Thread.sleep(1000);
                         if(!p.isAlive()) {
                             System.err.println("premature process end .. exit code:"+p.exitValue());
-                            BufferedReader inStream = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-                            if (inStream != null) {
+                            if (errStream != null) {
                                 String line = null;
-                                while (inStream.ready()) {
-                                    line = inStream.readLine();
+                                while (errStream.ready()) {
+                                    line = errStream.readLine();
                                     if (line != null) {
                                         System.err.print("[ChildProcess]" + line);
                                     }
                                 }
                             }
+                            p = null;
+                            try {
+                                if (errStream != null) {
+                                    errStream.close();
+                                }
+                            } catch (Throwable th) {}
+                            try {
+                                if (inStream != null) {
+                                    inStream.close();
+                                }
+                            } catch (Throwable th) {}
                         } else {
                             System.out.println("Micorservice active..");
                         }
@@ -112,6 +129,21 @@ public class WatchDogThread extends Thread {
                     }
                 } else {
                     counter = 1;
+                }
+
+                if(p != null) {
+                    if (p.isAlive()) {
+                        if (errStream != null) {
+                            while(errStream.ready()) {
+                                System.err.println("[WD.ERR]-"+errStream.readLine());
+                            }
+                        }
+                        if (inStream != null) {
+                            while(inStream.ready()) {
+                                System.out.println("[WD]-"+inStream.readLine());
+                            }
+                        }
+                    }
                 }
 
                 Thread.sleep(pause);

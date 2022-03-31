@@ -144,6 +144,27 @@ public class LiquidMS {
 
     public static void run(String[] args) throws Exception {
 
+        if(args.length > 0) {
+            boolean runFrontEnd = false;
+            for (int i = 0; i < args.length; i++) {
+                if("-LiquidMS:run".equalsIgnoreCase(args[i])) {
+                    runFrontEnd = true;
+                } else if("-LiquidMS:debug".equalsIgnoreCase(args[i])) {
+                    runFrontEnd = true;
+                }
+            }
+
+            if(runFrontEnd) {
+                // run server
+                System.out.println("Running server..");
+                JettyServer js = new JettyServer();
+                js.init();
+                registerAllServlet(js);
+                js.start();
+
+            }
+        }
+
         System.out.println(
                         "██╗     ██╗ ██████╗ ██╗   ██╗██╗██████╗                                                    \n" +
                         "██║     ██║██╔═══██╗██║   ██║██║██╔══██╗                                                   \n" +
@@ -166,50 +187,15 @@ public class LiquidMS {
         LooperThread lt = new LooperThread();
         lt.start();
 
-        if(args.length > 0) {
-            for (int i = 0; i < args.length; i++) {
-                if("-LiquidMS:run".equalsIgnoreCase(args[i])) {
-                    System.out.println("Running server..");
-                    JettyServer js = new JettyServer();
-                    js.init();
-                    registerAllServlet(js);
-                    js.start();
-                } else if("-LiquidMS:test".equalsIgnoreCase(args[i])) {
-                    if(args.length >= 2) {
-                        if(args[1] != null && !args[1].isEmpty()) {
-                            if("-test".equalsIgnoreCase(args[1])) {
-                                // testServer();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         // run watch dog
         System.out.println("Running watchdog..");
         WatchDogThread wd = new WatchDogThread();
         wd.start();
 
 
+        // prevent program exit
         while(run) {
-            Thread.sleep(250);
+            Thread.sleep(6000);
         }
     }
-
-    /*
-    static public void testServer() throws URISyntaxException, IOException, InterruptedException {
-        String url = "http://localhost:8090/status";
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(url))
-                .headers("Host", "localhost", "Accept", "*")
-                .GET()
-                .build();
-
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-    }
-    */
-
 }
