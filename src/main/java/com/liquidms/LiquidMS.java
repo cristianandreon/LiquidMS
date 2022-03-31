@@ -1,6 +1,7 @@
 package com.liquidms;
 
 import com.liquid.connectionPool;
+import com.liquid.wsStreamerClient;
 import oshi.SystemInfo;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
@@ -9,6 +10,8 @@ import javax.servlet.Servlet;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LiquidMS {
 
@@ -117,13 +120,20 @@ public class LiquidMS {
         if(name != null && !name.isEmpty()) {
             LooperThread.LooperEvent lc = new LooperThread.LooperEvent();
             if (className != null && !className.isEmpty()) {
-                lc.cls = Class.forName(className);
-                if(methodName != null && !methodName.isEmpty()) {
-                    lc.m = lc.cls.getMethod(methodName, Object.class);
-                    lc.clsInstance = (Object) lc.cls.newInstance();
-                    lc.last_time = System.currentTimeMillis();
-                    eventList.add(lc);
-                    return true;
+                try {
+                    lc.cls = Class.forName(className);
+                    if (methodName != null && !methodName.isEmpty()) {
+                        lc.m = lc.cls.getMethod(methodName, Object.class);
+                        lc.clsInstance = (Object) lc.cls.newInstance();
+                        lc.delay = delay_msec;
+                        lc.interval = interval_msec;
+                        lc.maxExec = maxExec;
+                        lc.last_time = System.currentTimeMillis();
+                        eventList.add(lc);
+                        return true;
+                    }
+                } catch (Throwable th) {
+                    Logger.getLogger(wsStreamerClient.class.getName()).log(Level.SEVERE, "ERROR : connot add event .. "+th.getMessage());
                 }
             }
         }
@@ -151,6 +161,11 @@ public class LiquidMS {
                         "                                                                                           "
         );
 
+        // run loops
+        System.out.println("Running looper..");
+        LooperThread lt = new LooperThread();
+        lt.start();
+
         if(args.length > 0) {
             for (int i = 0; i < args.length; i++) {
                 if("-LiquidMS:run".equalsIgnoreCase(args[i])) {
@@ -175,11 +190,6 @@ public class LiquidMS {
         System.out.println("Running watchdog..");
         WatchDogThread wd = new WatchDogThread();
         wd.start();
-
-        // run watch dog
-        System.out.println("Running looper..");
-        LooperThread lt = new LooperThread();
-        lt.start();
 
 
         while(run) {

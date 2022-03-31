@@ -90,11 +90,12 @@ public class LooperThread extends Thread {
 
                             if(exec) {
                                 try {
-                                    lc.m.invoke(lc);
+                                    lc.m.invoke(lc.clsInstance, (Object)lc);
                                 } catch (Throwable th) {
                                     Logger.getLogger(LooperThread.class.getName()).log(Level.SEVERE, "ERROR in event '"+lc.name+"' : "+th.getMessage());
                                 }
                                 lc.execCounter++;
+                                lc.last_time = ctime;
                             }
                         }
                     }
