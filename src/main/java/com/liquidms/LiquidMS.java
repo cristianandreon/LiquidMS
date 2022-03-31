@@ -92,10 +92,21 @@ public class LiquidMS {
     static private ArrayList<servlet> servletList = new ArrayList<servlet>();
     public static ArrayList<LooperThread.LooperEvent> eventList = new ArrayList<LooperThread.LooperEvent>();
 
+    /**
+     * Add a servel
+     * @param cls
+     * @param url
+     * @throws Exception
+     */
     public static void addServlet(Class<?> cls, String url) throws Exception {
         servletList.add( new servlet(cls, url) );
     }
 
+    /**
+     * Register all servlet to the web server
+     * @param js
+     * @throws Exception
+     */
     private static void registerAllServlet(JettyServer js) throws Exception {
         for (servlet s: servletList) {
             js.addServletWithMapping((Class<? extends Servlet>) s.cls, s.url);
