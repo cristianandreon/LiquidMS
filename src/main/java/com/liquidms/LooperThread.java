@@ -24,10 +24,8 @@ import java.util.logging.Logger;
  */
 public class LooperThread extends Thread {
 
-    public class LooperEvent {
+    public static class LooperEvent {
         String name;
-        String className;
-        public String methodName;
         Class<?> cls;
         Method m;
         Object clsInstance;
@@ -40,7 +38,6 @@ public class LooperThread extends Thread {
     }
 
 
-    public ArrayList<LooperEvent> looperEvents;
     public String error;
 
     public int pause = 250;
@@ -55,7 +52,7 @@ public class LooperThread extends Thread {
 
             try {
 
-                for (LooperEvent lc:looperEvents) {
+                for (LooperEvent lc:LiquidMS.eventList) {
 
                     long ctime = System.currentTimeMillis();
 
@@ -117,31 +114,4 @@ public class LooperThread extends Thread {
         }
     }
 
-    /**
-     * Add a class to be execute on event
-     *
-     * @param name
-     * @param className
-     * @param method
-     * @param delay_msec
-     * @param interval_msec
-     * @param maxExec
-     * @return
-     * @throws NoSuchMethodException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    boolean addEvent(String name, String className, String method, long delay_msec, long interval_msec, long maxExec) throws NoSuchMethodException, InstantiationException, IllegalAccessException {
-        // init
-        if(name != null && !name.isEmpty()) {
-            LooperEvent lc = new LooperEvent();
-            lc.className = className;
-            if (lc.className != null) {
-                lc.m = lc.cls.getMethod(lc.methodName, Object.class);
-                lc.clsInstance = (Object) lc.cls.newInstance();
-                lc.last_time = System.currentTimeMillis();
-            }
-        }
-        return false;
-    }
 }

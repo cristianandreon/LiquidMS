@@ -87,6 +87,7 @@ public class LiquidMS {
     }
 
     static private ArrayList<servlet> servletList = new ArrayList<servlet>();
+    public static ArrayList<LooperThread.LooperEvent> eventList = new ArrayList<LooperThread.LooperEvent>();
 
     public static void addServlet(Class<?> cls, String url) throws Exception {
         servletList.add( new servlet(cls, url) );
@@ -98,14 +99,43 @@ public class LiquidMS {
         }
     }
 
-    static public boolean addEvent(String name, String className, String method, long delay_msec, long interval_msec, long maxExec) throws NoSuchMethodException, InstantiationException, IllegalAccessException {
-        return lt.addEvent( name, className, method, delay_msec, interval_msec, maxExec);
+    /**
+     * Add a class to be execute on event
+     *
+     * @param name
+     * @param className
+     * @param methodName
+     * @param delay_msec
+     * @param interval_msec
+     * @param maxExec
+     * @return
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    static public boolean addEvent(String name, String className, String methodName, long delay_msec, long interval_msec, long maxExec) throws NoSuchMethodException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        if(name != null && !name.isEmpty()) {
+            LooperThread.LooperEvent lc = new LooperThread.LooperEvent();
+            if (className != null && !className.isEmpty()) {
+                lc.cls = Class.forName(className);
+                if(methodName != null && !methodName.isEmpty()) {
+                    lc.m = lc.cls.getMethod(methodName, Object.class);
+                    lc.clsInstance = (Object) lc.cls.newInstance();
+                    lc.last_time = System.currentTimeMillis();
+                    eventList.add(lc);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
+
+
 
     public static void run(String[] args) throws Exception {
 
         System.out.println(
-                "██╗     ██╗ ██████╗ ██╗   ██╗██╗██████╗                                                    \n" +
+                        "██╗     ██╗ ██████╗ ██╗   ██╗██╗██████╗                                                    \n" +
                         "██║     ██║██╔═══██╗██║   ██║██║██╔══██╗                                                   \n" +
                         "██║     ██║██║   ██║██║   ██║██║██║  ██║                                                   \n" +
                         "██║     ██║██║▄▄ ██║██║   ██║██║██║  ██║                                                   \n" +
