@@ -101,13 +101,13 @@ public class LiquidMS implements Servlet {
                         "Welcome in LiquidMS ver."+version+
                         "</div>"+
                         "<div style='position:fixed; top: 150px; left : 60px; display:block; font-size:24px'> " +
-                        "A Java based microservice with watch dog/connection pool/persistece managment<br/>" +
+                        "A Java based microservice with watch dog/connection pool/persistence managment<br/>" +
                         "See more info at <a href='http://liquid-framework.org'>http://liquid-framework.org</a>"+
                         "</div>"+
-                        "<div style='position:fixed; top: 200px; left : 60px; display:block; font-size:20px'> " +
+                        "<div style='position:fixed; top: 250px; left : 60px; display:block; font-size:20px'> " +
                         "Written by : Cristian Andreon - <a href='cristianandreon.eu'>cristianandreon.eu</a> - <a href='mailto:info@cristianandreon.eu'>info@cristianandreon.eu</a>" +
                         "</div>" +
-                        "<div style='position:fixed; top: 250px; left : 60px; display:block; font-size:15px'> " +
+                        "<div style='position:fixed; top: 300px; left : 60px; display:block; font-size:15px'> " +
                         "Last update : 15-07-2022" +
                         "</div>"
         );
