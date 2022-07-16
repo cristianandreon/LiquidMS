@@ -28,9 +28,10 @@ public class JettyServer {
         server.setConnectors(new Connector[]{connector});
     }
 
-    public void start() throws Exception {
+    public void start(boolean waitForEnding) throws Exception {
         server.start();
-        server.join();
+        if(waitForEnding)
+            server.join();
     }
 
     public void addServletWithMapping(Class<? extends Servlet> servlet, String url) {

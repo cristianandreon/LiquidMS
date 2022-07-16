@@ -69,9 +69,9 @@ public class WatchDogThread extends Thread {
                 if(!processFound) {
                     if(counter > maxCounter || counter == 0) {
                         if(counter == 0) {
-                            System.out.println("Running Micorservice..");
+                            System.out.print("Running Micorservice..");
                         } else {
-                            System.out.println("Restaring Micorservice..");
+                            System.out.print("Restaring Micorservice..");
                         }
                         if(processPath == null) {
                             OSProcess cosp = LiquidMS.getOSProcessById(LiquidMS.getCurrentProcessId());
@@ -120,10 +120,12 @@ public class WatchDogThread extends Thread {
                                     inStream.close();
                                 }
                             } catch (Throwable th) {}
+                            System.out.println("FAILED");
                         } else {
-                            System.out.println("Micorservice active..");
+                            System.out.println("OK");
                         }
                         counter = 1;
+
                     } else {
                         counter++;
                     }
@@ -160,3 +162,13 @@ public class WatchDogThread extends Thread {
         }
     }
 }
+
+/*
+"/home/ubuntu/.jdks/corretto-11.0.13/bin/java" \
+-Dfile.encoding=UTF-8 \
+-classpath \
+"/home/ubuntu/IdeaProjects/LiquidMS-demo/out/production/LiquidMS-demo:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/activation.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/apache-commons-lang.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-codec-1.14.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/ganymed-ssh2-262.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/gson-2.8.2.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javassist.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.activation.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.xml-1.3.4.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.xml.bind.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/jsch-0.1.55.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/jsoup-1.13.1.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/mail-1.4.7.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/mssql-jdbc-8.2.2.jre13.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/mysql-connector-java-8.0.19.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/ojdbc8.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/postgresql-42.2.6.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/json-20211205.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.servlet.jsp-3.1.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.servlet-api-3.1.0.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-logging-1.2.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-pool2-2.6.0.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-dbcp2-2.9.0.jar:/home/ubuntu/IdeaProjects/LiquidMS-demo/out/production/Liquid:/home/ubuntu/IdeaProjects/LiquidMS/target/classes:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-server/9.4.3.v20170317/jetty-server-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-http/9.4.3.v20170317/jetty-http-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-util/9.4.3.v20170317/jetty-util-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-io/9.4.3.v20170317/jetty-io-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.3.v20170317/jetty-servlet-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-security/9.4.3.v20170317/jetty-security-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar:/home/ubuntu/.m2/repository/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.jar:/home/ubuntu/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.13.3/log4j-slf4j-impl-2.13.3.jar:/home/ubuntu/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/jna-jpms-5.10.0.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/slf4j-api-1.7.36.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/oshi-core-java11-6.1.5.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/jna-platform-jpms-5.10.0.jar:/snap/intellij-idea-ultimate/348/lib/idea_rt.jar" \
+com.customer.app.Main
+
+/home/ubuntu/IdeaProjects/LiquidMS-demo/out/production/LiquidMS-demo:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/activation.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/apache-commons-lang.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-codec-1.14.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/ganymed-ssh2-262.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/gson-2.8.2.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javassist.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.activation.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.xml-1.3.4.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.xml.bind.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/jsch-0.1.55.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/jsoup-1.13.1.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/mail-1.4.7.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/mssql-jdbc-8.2.2.jre13.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/mysql-connector-java-8.0.19.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/ojdbc8.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/postgresql-42.2.6.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/json-20211205.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.servlet.jsp-3.1.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/javax.servlet-api-3.1.0.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-logging-1.2.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-pool2-2.6.0.jar:/home/ubuntu/IdeaProjects/Liquid/WEB-INF/lib/commons-dbcp2-2.9.0.jar:/home/ubuntu/IdeaProjects/LiquidMS-demo/out/production/Liquid:/home/ubuntu/IdeaProjects/LiquidMS/target/classes:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-server/9.4.3.v20170317/jetty-server-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-http/9.4.3.v20170317/jetty-http-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-util/9.4.3.v20170317/jetty-util-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-io/9.4.3.v20170317/jetty-io-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.3.v20170317/jetty-servlet-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/eclipse/jetty/jetty-security/9.4.3.v20170317/jetty-security-9.4.3.v20170317.jar:/home/ubuntu/.m2/repository/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar:/home/ubuntu/.m2/repository/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.jar:/home/ubuntu/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.13.3/log4j-slf4j-impl-2.13.3.jar:/home/ubuntu/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/jna-jpms-5.10.0.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/slf4j-api-1.7.36.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/oshi-core-java11-6.1.5.jar:/home/ubuntu/IdeaProjects/LiquidMS/libs/jna-platform-jpms-5.10.0.jar:/snap/intellij-idea-ultimate/348/lib/idea_rt.jar
+*/
