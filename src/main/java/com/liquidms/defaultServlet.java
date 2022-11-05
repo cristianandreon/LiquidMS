@@ -18,9 +18,10 @@ import java.util.logging.Logger;
 public class defaultServlet implements Servlet {
 
 
+
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
-
+        init(null);
     }
 
     @Override
