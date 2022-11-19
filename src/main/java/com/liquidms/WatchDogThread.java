@@ -71,9 +71,9 @@ public class WatchDogThread extends Thread {
                 if(!processFound) {
                     if(counter > maxCounter || counter == 0) {
                         if(counter == 0) {
-                            System.out.println("Running Micorservice..");
+                            System.out.println("Running microservice..");
                         } else {
-                            System.out.println("Restaring Micorservice..");
+                            System.out.println("Restaring microservice..");
                         }
                         if(processPath == null) {
                             OSProcess cosp = LiquidMS.getOSProcessById(LiquidMS.getCurrentProcessId());
