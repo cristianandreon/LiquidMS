@@ -11,18 +11,18 @@
     </content>
     <orderEntry type="jdk" jdkName="corretto-11" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Liquid" />
-    <orderEntry type="library" name="LiquidMS" level="application" />
+    <orderEntry type="module" module-name="Liquid" exported="" />
+    <orderEntry type="library" exported="" name="LiquidMS" level="application" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.4.3.v20170317" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.4.3.v20170317" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.4.3.v20170317" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.4.3.v20170317" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.4.3.v20170317" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.4.3.v20170317" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.13.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.13.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.logging.log4j:log4j-core:2.13.3" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.4.3.v20170317" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.4.3.v20170317" level="project" />
   </component>
 </module>

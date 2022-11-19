@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ public class LiquidMS implements Servlet {
     static WatchDogThread wd = null;
     static LooperThread lt = null;
 
+    static String glCurrentFolder = null;
 
 
 
@@ -263,6 +265,9 @@ public class LiquidMS implements Servlet {
         boolean runFrontEnd = false;
         boolean runWatchdog = true;
         boolean runLooper = false;
+
+        glCurrentFolder = Paths.get("").toAbsolutePath().toString();
+        System.out.println("Current folder:"+glCurrentFolder);
 
         runMode = "Controller";
 

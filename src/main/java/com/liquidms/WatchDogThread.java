@@ -21,6 +21,8 @@ public class WatchDogThread extends Thread {
 
     public String processName;
     public String processPath;
+    public String processFullPath;
+
     public ArrayList<String> processArgs;
     public String error;
 
@@ -94,7 +96,17 @@ public class WatchDogThread extends Thread {
                                 processArgs.add("-XX:MaxRAM=72m");
                             }
                         }
+
+                        processFullPath = LiquidMS.glCurrentFolder + File.separator + processArgs.get(1);
+                        processArgs.set(1, processFullPath);
+
+                        System.out.println("command line args:");
+                        for (int i = 0; i < processArgs.size(); i++) {
+                            System.out.println(""+(i+1) + processArgs.get(i));
+                        }
+
                         p = com.liquid.utility.startProcess( processPath, processArgs.toArray(new String[0]) );
+
                         errStream = new BufferedReader(new InputStreamReader(p.getErrorStream()));
                         inStream = new BufferedReader(new InputStreamReader(p.getInputStream()));
                         Thread.sleep(1000);

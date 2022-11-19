@@ -1,7 +1,6 @@
 package com.liquidms;
 
 
-import com.liquidms.LiquidMS;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
