@@ -1,5 +1,6 @@
 package com.liquidms;
 
+import com.liquid.connection;
 import com.liquid.wsStreamerClient;
 import oshi.SystemInfo;
 import oshi.software.os.OSProcess;
@@ -111,14 +112,14 @@ public class LiquidMS implements Servlet {
                 servletResponse.getOutputStream().println("[LiquidMS] Internal Error : Missing class instance");
             }
         } else {
-            servletResponse.getOutputStream().println("[LiquidMS] : servlet not registered");
+            servletResponse.getOutputStream().println("[LiquidMS] : servlet not registered" + "<br/><br/>" + defaultServlet.print_servlets());
         }
     }
 
     private servlet get_servlet(ServletRequest servletRequest) {
         String url = ((HttpServletRequest)servletRequest).getRequestURI();
         url = url.length() > 1 && url.endsWith("/") ? url.substring(0, url.length()-1) : url;
-        url = url.length() > 1 && url.startsWith("/") ? url.substring(1) : url;
+        url = url.length() > 0 && url.startsWith("/") ? url : "/" + url;
         for (servlet sl : servletList) {
             if(sl.url.equalsIgnoreCase(url)) {
                 return sl;
@@ -189,8 +190,10 @@ public class LiquidMS implements Servlet {
     static String printServlet() {
         String out = "<table cellpadding=5 cellspacing=10 style='text-align:left'>";
         out += "<thead><tr><th>url</th><th>class</th><th>counter</th></tr></thead><tbody>";
-        for (servlet sl : servletList) {
-            out += "<tr><td><a href='" + sl.url + "'>"+sl.url+"</a></td><td>" + sl.cls + "</td><td>" + sl.counter + "</td></tr>";
+        if(servletList != null) {
+            for (servlet sl : servletList) {
+                out += "<tr><td><a href='" + sl.url + "'>" + sl.url + "</a></td><td>" + sl.cls + "</td><td>" + sl.counter + "</td></tr>";
+            }
         }
         return out + "</tbody></table>";
     }
@@ -253,8 +256,28 @@ public class LiquidMS implements Servlet {
     static String printLoopers() {
         String out = "<table cellpadding=5 cellspacing=10 style='text-align:left'>";
         out += "<thead><tr><th>name</th><th>class</th><th>interval</th><th>max execs</th><th>delay</th><th>counter</th></tr></thead><tbody>";
-        for (LooperThread.LooperEvent evt : eventList) {
-            out += "<tr><td>" + evt.name + "</td><td>" + evt.clsInstance.getClass().getName() + "</td><td>"+evt.interval + "</td><td>"+evt.maxExec + "</td><td>"+evt.delay + "</td><td>"+evt.execCounter+"</<td></tr>";
+        if(eventList != null) {
+            for (LooperThread.LooperEvent evt : eventList) {
+                out += "<tr><td>" + evt.name + "</td><td>" + evt.clsInstance.getClass().getName() + "</td><td>" + evt.interval + "</td><td>" + evt.maxExec + "</td><td>" + evt.delay + "</td><td>" + evt.execCounter + "</<td></tr>";
+            }
+        }
+        return out + "</tbody></table>";
+    }
+
+
+    static String printDatasources() {
+        String out = "<table cellpadding=5 cellspacing=10 style='text-align:left'>";
+        out += "<thead><tr><th>driver</th><th>host</th><th>port</th><th>database</th><th>user</th><th>service</th></tr></thead><tbody>";
+        if(com.liquid.connection.jdbcSources != null) {
+            for (com.liquid.connection.JDBCSource ds : com.liquid.connection.jdbcSources) {
+                out += "<tr><td>" + (ds.driver != null ? ds.driver: "[N/D]")
+                        + "</td><td>" + (ds.host != null ? ds.driver: "[locahost]")
+                        + "</td><td>" + (ds.port != null ? ds.driver: "[default]")
+                        + "</td><td>" + (ds.database != null ? ds.driver: "[N/D]")
+                        + "</td><td>" + (ds.user != null ? ds.driver: "[N/D]")
+                        + "</td><td>" + (ds.service != null ? ds.driver: "[N/D]")
+                        + "</<td></tr>";
+            }
         }
         return out + "</tbody></table>";
     }

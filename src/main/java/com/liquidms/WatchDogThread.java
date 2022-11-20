@@ -35,6 +35,7 @@ public class WatchDogThread extends Thread {
     Process p = null;
     BufferedReader errStream = null;
     BufferedReader inStream = null;
+    private boolean debug = false;
 
 
     public void run() {
@@ -108,9 +109,11 @@ public class WatchDogThread extends Thread {
                         }
 
 
-                        System.out.println("command line args:");
-                        for (int i = 0; i < processArgs.size(); i++) {
-                            System.out.println(""+(i+1) + " : " + processArgs.get(i));
+                        if(debug) {
+                            System.out.println("command line args:");
+                            for (int i = 0; i < processArgs.size(); i++) {
+                                System.out.println("" + (i + 1) + " : " + processArgs.get(i));
+                            }
                         }
 
                         p = com.liquid.utility.startProcess( processPath, processArgs.toArray(new String[0]) );
