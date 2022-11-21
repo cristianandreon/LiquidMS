@@ -112,6 +112,7 @@ public class LiquidMS implements Servlet {
                 servletResponse.getOutputStream().println("[LiquidMS] Internal Error : Missing class instance");
             }
         } else {
+            servletResponse.setContentType("text/html");
             servletResponse.getOutputStream().println("[LiquidMS] : servlet not registered" + "<br/><br/>" + defaultServlet.print_servlets());
         }
     }
@@ -212,7 +213,7 @@ public class LiquidMS implements Servlet {
     }
 
     /**
-     * Add a class to be execute on event
+     * Add a class to be executed on event
      *
      * @param name
      * @param className
