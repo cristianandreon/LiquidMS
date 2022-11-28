@@ -21,6 +21,7 @@ public class LiquidMS implements Servlet {
 
     static public String version = "1.02";
     static public int port = 8090;
+    static public boolean https = false;
 
     static public String runMode = "";
 
@@ -372,5 +373,3 @@ public class LiquidMS implements Servlet {
         }
     }
 }
-
-
