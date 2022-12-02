@@ -36,9 +36,11 @@ public class JettyServer {
             final ServerConnector httpsConnector = new ServerConnector(server,
                     new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()),
                     new HttpConnectionFactory(httpsConfiguration));
+            System.out.println("*** HTTPS port:" + LiquidMS.port);
             httpsConnector.setPort(LiquidMS.port);
             server.addConnector(httpsConnector);
         } else {
+            System.out.println("*** HTTP port:" + LiquidMS.port);
             ServerConnector connector = new ServerConnector(server);
             connector.setPort(LiquidMS.port);
             server.setConnectors(new Connector[]{connector});

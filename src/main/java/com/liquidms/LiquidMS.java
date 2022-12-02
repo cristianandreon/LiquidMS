@@ -347,7 +347,7 @@ public class LiquidMS implements Servlet {
             js.init();
             registerAllServlet(js);
             js.start(false);
-            System.out.println("OK");
+            System.out.println("Running server OK");
         }
 
         // run looper
@@ -355,7 +355,7 @@ public class LiquidMS implements Servlet {
             System.out.print("Running looper..");
             lt = new LooperThread();
             lt.start();
-            System.out.println("OK");
+            System.out.println("Running looper OK");
         }
 
         // run watch dog
@@ -363,7 +363,7 @@ public class LiquidMS implements Servlet {
             System.out.print("Running watchdog..");
             wd = new WatchDogThread();
             wd.start();
-            System.out.println("OK");
+            System.out.println("Running watchdog OK");
         }
 
 

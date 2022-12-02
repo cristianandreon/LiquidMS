@@ -143,9 +143,8 @@ public class WatchDogThread extends Thread {
                                     inStream.close();
                                 }
                             } catch (Throwable th) {}
-                            System.out.println("FAILED");
+                            System.out.println("Watchdog ERROR: process not alive");
                         } else {
-                            System.out.println("OK");
                         }
                         counter = 1;
 
