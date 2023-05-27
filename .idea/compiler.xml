@@ -9,8 +9,5 @@
         <module name="LiquidMS" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="LiquidMS" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

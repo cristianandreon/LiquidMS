@@ -1,6 +1,5 @@
 package com.liquidms;
 
-import com.liquid.connection;
 import com.liquid.wsStreamerClient;
 import oshi.SystemInfo;
 import oshi.software.os.OSProcess;

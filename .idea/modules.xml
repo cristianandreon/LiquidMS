@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Liquid/Liquid.iml" filepath="$PROJECT_DIR$/../Liquid/Liquid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LiquidMS.iml" filepath="$PROJECT_DIR$/LiquidMS.iml" />
     </modules>
   </component>
 </project>
