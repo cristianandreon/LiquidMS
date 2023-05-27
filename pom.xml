@@ -33,6 +33,17 @@
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.13.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.oshi/oshi-core -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>6.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>misc</groupId>
+            <artifactId>misc</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
